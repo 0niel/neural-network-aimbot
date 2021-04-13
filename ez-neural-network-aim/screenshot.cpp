@@ -1,7 +1,7 @@
 #include "screenshot.h"
 
 screenshot::screenshot() {
-	// Параметры экрана
+	// screen settings
 	HWND hwnd = GetDesktopWindow();
 	m_hWDC = GetWindowDC(hwnd);
 	m_width = GetSystemMetrics(SM_CXSCREEN);

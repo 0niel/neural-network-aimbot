@@ -48,7 +48,7 @@ void detector::postprocess(cv::Mat& frame, const std::vector<cv::Mat>& outs) {
         }
     }
 
-    // исключение перекрывающихся боксов и прочий шлак
+    // exclusion of overlapping boxes and other trash
     std::vector<int> indices;
     cv::dnn::NMSBoxes(boxes, confidences, m_confidence, m_threshold, indices);
 
@@ -58,7 +58,7 @@ void detector::postprocess(cv::Mat& frame, const std::vector<cv::Mat>& outs) {
         draw_box(confidences[idx], box.x, box.y,
             box.x + box.width, box.y + box.height, frame);
 
-        // todo: проверка, включен ли аимбот
+        // todo: check if the aim is enabled
         aimbot::aim_to(box.x, box.y, box.width, box.height);
     }
 
@@ -89,7 +89,7 @@ void detector::start(cv::Mat& image) {
     image.convertTo(detected_frame, CV_8U);
     cv::imshow("NN", detected_frame);
 
-    // кол-во обработанных кадоров/сек.
+    // number of processed frames per sec.
     delta_ticks = clock() - current_ticks;
     if (delta_ticks > 0)
         fps = CLOCKS_PER_SEC / delta_ticks;
